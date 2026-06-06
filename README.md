@@ -8,11 +8,11 @@ This guide documents how to configure a Windows development environment so that 
 
 Keep:
 
-- Windows OS on `C:`
-- Applications on `D:`
-- Development caches and package stores on `D:`
+* Windows OS on `C:`
+* Applications on `D:`
+* Development caches and package stores on `D:`
 
-This prevents the Windows partition from gradually filling up.
+This prevents the Windows partition from gradually filling up over time.
 
 ---
 
@@ -101,28 +101,81 @@ D:\DevData\npm-cache
 
 # Bun Setup
 
-Set Bun installation directory:
+## Step 1: Configure Bun Install Location
+
+Run:
 
 ```powershell
 [Environment]::SetEnvironmentVariable(
-"BUN_INSTALL",
-"D:\DevData\.bun",
-"User"
+    "BUN_INSTALL",
+    "D:\DevData\.bun",
+    "User"
 )
 ```
 
-Restart PowerShell.
+## Step 2: Close PowerShell Completely
 
-Install Bun:
+Close all PowerShell windows.
 
-```powershell
-powershell -c "irm bun.sh/install.ps1 | iex"
-```
+Open a brand-new PowerShell window.
 
 Verify:
 
 ```powershell
 echo $env:BUN_INSTALL
+```
+
+Expected:
+
+```text
+D:\DevData\.bun
+```
+
+Do not continue until this is displayed.
+
+## Step 3: Install Bun
+
+```powershell
+powershell -c "irm bun.sh/install.ps1 | iex"
+```
+
+Expected output:
+
+```text
+The binary is located at D:\DevData\.bun\bin\bun.exe
+```
+
+If the installer shows:
+
+```text
+C:\Users\<username>\.bun
+```
+
+stop and verify that `BUN_INSTALL` is correctly loaded in the current PowerShell session.
+
+## Step 4: Verify Installation
+
+Check that Bun exists:
+
+```powershell
+Test-Path "D:\DevData\.bun\bin\bun.exe"
+```
+
+Expected:
+
+```text
+True
+```
+
+## Step 5: Verify PATH
+
+Close PowerShell again.
+
+Open a new PowerShell window.
+
+Run:
+
+```powershell
 where.exe bun
 bun --version
 ```
@@ -130,8 +183,35 @@ bun --version
 Expected:
 
 ```text
-D:\DevData\.bun
 D:\DevData\.bun\bin\bun.exe
+```
+
+and a Bun version number.
+
+## Optional Cleanup
+
+If Bun was accidentally installed to:
+
+```text
+C:\Users\<username>\.bun
+```
+
+remove it:
+
+```powershell
+Remove-Item -Recurse -Force "$HOME\.bun"
+```
+
+Verify:
+
+```powershell
+Test-Path "$HOME\.bun"
+```
+
+Expected:
+
+```text
+False
 ```
 
 ---
@@ -148,12 +228,12 @@ D:\DevData\.docker
 D:\DevData\.vscode
 ```
 
-while applications still access:
+while applications continue using:
 
 ```text
-C:\Users\rawad\.cursor
-C:\Users\rawad\.docker
-C:\Users\rawad\.vscode
+C:\Users\<username>\.cursor
+C:\Users\<username>\.docker
+C:\Users\<username>\.vscode
 ```
 
 ---
@@ -165,7 +245,7 @@ Close Cursor.
 Move:
 
 ```text
-C:\Users\rawad\.cursor
+C:\Users\<username>\.cursor
 ```
 
 to:
@@ -177,7 +257,7 @@ D:\DevData\.cursor
 Open Command Prompt as Administrator:
 
 ```cmd
-mklink /J "C:\Users\rawad\.cursor" "D:\DevData\.cursor"
+mklink /J "C:\Users\<username>\.cursor" "D:\DevData\.cursor"
 ```
 
 ---
@@ -195,7 +275,7 @@ wsl --shutdown
 Move:
 
 ```text
-C:\Users\rawad\.docker
+C:\Users\<username>\.docker
 ```
 
 to:
@@ -207,7 +287,7 @@ D:\DevData\.docker
 Create junction:
 
 ```cmd
-mklink /J "C:\Users\rawad\.docker" "D:\DevData\.docker"
+mklink /J "C:\Users\<username>\.docker" "D:\DevData\.docker"
 ```
 
 ---
@@ -219,7 +299,7 @@ Close VS Code.
 Move:
 
 ```text
-C:\Users\rawad\.vscode
+C:\Users\<username>\.vscode
 ```
 
 to:
@@ -231,7 +311,7 @@ D:\DevData\.vscode
 Create junction:
 
 ```cmd
-mklink /J "C:\Users\rawad\.vscode" "D:\DevData\.vscode"
+mklink /J "C:\Users\<username>\.vscode" "D:\DevData\.vscode"
 ```
 
 ---
@@ -241,7 +321,7 @@ mklink /J "C:\Users\rawad\.vscode" "D:\DevData\.vscode"
 Open Command Prompt:
 
 ```cmd
-dir C:\Users\rawad
+dir C:\Users\<username>
 ```
 
 Expected:
@@ -285,6 +365,7 @@ Verify Bun:
 ```powershell
 echo $env:BUN_INSTALL
 where.exe bun
+bun --version
 ```
 
 Expected:
