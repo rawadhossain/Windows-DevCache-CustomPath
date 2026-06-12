@@ -148,7 +148,7 @@ The binary is located at D:\DevData\.bun\bin\bun.exe
 If the installer shows:
 
 ```text
-C:\Users\<username>\.bun
+C:\Users\rawad\.bun
 ```
 
 stop and verify that `BUN_INSTALL` is correctly loaded in the current PowerShell session.
@@ -193,7 +193,7 @@ and a Bun version number.
 If Bun was accidentally installed to:
 
 ```text
-C:\Users\<username>\.bun
+C:\Users\rawad\.bun
 ```
 
 remove it:
@@ -231,9 +231,9 @@ D:\DevData\.vscode
 while applications continue using:
 
 ```text
-C:\Users\<username>\.cursor
-C:\Users\<username>\.docker
-C:\Users\<username>\.vscode
+C:\Users\rawad\.cursor
+C:\Users\rawad\.docker
+C:\Users\rawad\.vscode
 ```
 
 ---
@@ -245,7 +245,7 @@ Close Cursor.
 Move:
 
 ```text
-C:\Users\<username>\.cursor
+C:\Users\rawad\.cursor
 ```
 
 to:
@@ -257,7 +257,7 @@ D:\DevData\.cursor
 Open Command Prompt as Administrator:
 
 ```cmd
-mklink /J "C:\Users\<username>\.cursor" "D:\DevData\.cursor"
+mklink /J "C:\Users\rawad\.cursor" "D:\DevData\.cursor"
 ```
 
 ---
@@ -275,7 +275,7 @@ wsl --shutdown
 Move:
 
 ```text
-C:\Users\<username>\.docker
+C:\Users\rawad\.docker
 ```
 
 to:
@@ -287,7 +287,7 @@ D:\DevData\.docker
 Create junction:
 
 ```cmd
-mklink /J "C:\Users\<username>\.docker" "D:\DevData\.docker"
+mklink /J "C:\Users\rawad\.docker" "D:\DevData\.docker"
 ```
 
 ---
@@ -299,7 +299,7 @@ Close VS Code.
 Move:
 
 ```text
-C:\Users\<username>\.vscode
+C:\Users\rawad\.vscode
 ```
 
 to:
@@ -311,7 +311,7 @@ D:\DevData\.vscode
 Create junction:
 
 ```cmd
-mklink /J "C:\Users\<username>\.vscode" "D:\DevData\.vscode"
+mklink /J "C:\Users\rawad\.vscode" "D:\DevData\.vscode"
 ```
 
 ---
@@ -321,7 +321,7 @@ mklink /J "C:\Users\<username>\.vscode" "D:\DevData\.vscode"
 Open Command Prompt:
 
 ```cmd
-dir C:\Users\<username>
+dir C:\Users\rawad
 ```
 
 Expected:
